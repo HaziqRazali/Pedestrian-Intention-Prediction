@@ -1,3 +1,5 @@
+Readme not complete
+
 # Pedestrian-Intention-Prediction
 
 We develop a method for pedestrian pose estimation and intent prediction. Work done at EPFL VITA laboratory under Prof. Alexandre Alahi.
@@ -26,3 +28,4 @@ What we used to develop the system
 # Usage
 ------------
 
+Download the model at https://drive.google.com/open?id=1SWY2GDEyQp-wNmmFKMBTZHSYJN7HKfgU and place it in outputs/
