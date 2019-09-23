@@ -1,0 +1,2 @@
+include openpifpaf/functional.pyx
+include openpifpaf/functional.c

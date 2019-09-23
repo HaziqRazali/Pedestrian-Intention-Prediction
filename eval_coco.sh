@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=None python3 -m openpifpaf.eval_coco --checkpoint outputs/resnet50block5-pif-paf-crm-edge401-190526-203030.pkl.epoch006 --long-edge=321 --loader-workers=1

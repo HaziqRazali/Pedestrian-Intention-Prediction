@@ -1,0 +1,13 @@
+matplotlib
+pysparkling
+python-json-logger
+scipy
+torch>=1.1.0
+torchvision
+
+[test]
+pylint
+pytest
+
+[train]
+pycocotools
