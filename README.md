@@ -26,19 +26,24 @@ What we used to develop the system
  
 [![Vid](/others/Video.png)](https://www.youtube.com/watch?v=KTmi0D-UTTQ)
 
-# Install
+# Setup
 ------------
 
+* Install the source code
 ```
 pip3 install openpifpaf
 pip3 install numpy cython
 pip3 install --editable '.[train,test]'
 ```
+* Download the MSCOCO dataset and place them in
+* Download the JAAD dataset and place them in
+* Run the script to convert the JAAD videos into frames 
+* JAAD annotation file
 
 # Train
 ------------
  
-* Download PifPaf's resnet50 model from [openpifpaf's](https://github.com/vita-epfl/openpifpaf) pretrained models or from a [direct link](https://drive.google.com/file/d/1lJCdGLYqWGNDHxFkg1esGZRZ2SzRRbrR/view?usp=sharing) and place it in `outputs/`
+* Download PifPaf's resnet50 model from [openpifpaf's](https://github.com/vita-epfl/openpifpaf) pretrained models or from a [direct link](https://drive.google.com/file/d/1lJCdGLYqWGNDHxFkg1esGZRZ2SzRRbrR/view?usp=sharing) and place it in `outputs/`. Note that the current version only works with resnet50.
 * Run `./train.sh` which contains the following command
 ```
 CUDA_VISIBLE_DEVICES="0,1,3" python3 -m openpifpaf.train \
@@ -60,6 +65,7 @@ CUDA_VISIBLE_DEVICES="0,1,3" python3 -m openpifpaf.train \
 ```
 
 The arguments are as follows
+* `CUDA_VISIBLE_DEVICES`: To control which CUDA devices the program should use.
 * `pre-lr`: Learning rate when the base net is frozen during the first epoch to initialize the head nets.
 * `lr`: Learning rate after the base net is unfrozen.
 * `momentum`: Adam parameter.
@@ -75,3 +81,19 @@ The arguments are as follows
 * `lambdas`: Loss weights for Pif's confidence, regression and scale heads and for Paf's confidence and two regression heads.
 * `freeze-base`: 1 if the base network should be frozen to initialize the task heads and 0 if not.
 * `jaad_train`: Path to JAAD dataset
+
+* At any point of time, the training and validation curves can be visualized as follows
+```
+python3 -m openpifpaf.logs \
+  outputs/resnet50block5-pif-paf-edge401-190424-122009.pkl.log \
+  outputs/resnet101block5-pif-paf-edge401-190412-151013.pkl.log \
+  outputs/resnet152block5-pif-paf-edge401-190412-121848.pkl.log
+```
+
+# Test
+------------
+
+* Generate the video with the predicted poses
+* Generate the video with the intent activity map
+* Guided backpropagation as shown in the paper
+* Evaluate precision and recall
