@@ -2,14 +2,16 @@ Readme not complete
 
 # Pedestrian-Intention-Prediction
 
-We develop a method for pedestrian pose estimation and intent prediction. Work done at EPFL VITA laboratory under Prof. Alexandre Alahi.
+We develop a method for pedestrian pose estimation and intent prediction. The source code is built on top of [PifPaf](https://github.com/vita-epfl/openpifpaf/blob/master/README.md) with very little modifications. Work done at EPFL VITA laboratory under Prof. Alexandre Alahi.
 
 # Contents
 ------------
   * [Requirements](#requirements)
   * [Brief Project Structure](#brief-project-structure)
   * [Results](#results)
-  * [Usage](#usage)
+  * [Install](#install)
+  * [Train](#train)
+  * [Test](#test)
 
 # Requirements
 ------------
@@ -24,8 +26,52 @@ What we used to develop the system
  
 [![Vid](/others/Video.png)](https://www.youtube.com/watch?v=KTmi0D-UTTQ)
 
-
-# Usage
+# Install
 ------------
 
-Download the model at https://drive.google.com/open?id=1SWY2GDEyQp-wNmmFKMBTZHSYJN7HKfgU and place it in outputs/
+```
+pip3 install openpifpaf
+pip3 install numpy cython
+pip3 install --editable '.[train,test]'
+```
+
+# Train
+------------
+ 
+* Download PifPaf's resnet50 model from [openpifpaf's](https://github.com/vita-epfl/openpifpaf) pretrained models or from a [direct link](https://drive.google.com/file/d/1lJCdGLYqWGNDHxFkg1esGZRZ2SzRRbrR/view?usp=sharing) and place it in `outputs/`
+* Run `./train.sh` which contains the following command
+```
+CUDA_VISIBLE_DEVICES="0,1,3" python3 -m openpifpaf.train \
+  --pre-lr=1e-5 \
+  --lr=1e-5 \
+  --momentum=0.95 \
+  --epochs=20 \
+  --lr-decay 60 70 \
+  --jaad_batch_size=3 \
+  --batch-size=6 \
+  --basenet=resnet50block5 \
+  --head-quad=1 \
+  --headnets pif paf crm \
+  --square-edge=401 \
+  --regression-loss=laplace \
+  --lambdas 30 2 2 50 3 3 \
+  --freeze-base=1 \
+  --jaad_train "singletxt_train_3s" --jaad_val "singletxt_val_3s" --jaad_pre_train "singletxt_pre_train_3s"
+```
+
+The arguments are as follows
+* `pre-lr`: Learning rate when the base net is frozen during the first epoch to initialize the head nets.
+* `lr`: Learning rate after the base net is unfrozen.
+* `momentum`: Adam parameter.
+* `epochs`: Number of epochs to train the model for.
+* `lr-decay`: 
+* `jaad-batch-size`: Batch size for the JAAD dataset.
+* `coco-batch-size`: Batch size for the COCO dataset.
+* `basenet`: PifPaf pretrained base network. Currently only works for resnet50.
+* `head-quad`: Number of pixel shuffle layers in the head net. Each layer has been hardcoded to upsample the input by a factor of 2 i.e. from H/8,W/8 to H/4,W/4
+* `headnets`: Head nets to use. Code does not work with anything other than `pif paf crm`
+* `square-edge`: Preprocessing parameter as done in PifPaf.
+* `regression-loss`: Loss used for the vector components in PifPaf.
+* `lambdas`: Loss weights for Pif's confidence, regression and scale heads and for Paf's confidence and two regression heads.
+* `freeze-base`: 1 if the base network should be frozen to initialize the task heads and 0 if not.
+* `jaad_train`: Path to JAAD dataset
