@@ -19,6 +19,7 @@ What we used to develop the system
 
   * Python 3
   * PyTorch 1.0.1
+  * OpenCV
   * Ubuntu 18.04.2
   
 # Results
@@ -82,7 +83,7 @@ The arguments are as follows
 * `freeze-base`: 1 if the base network should be frozen to initialize the task heads and 0 if not.
 * `jaad_train`: Path to JAAD dataset
 
-* At any point of time, the training and validation curves can be visualized as follows
+At any point of time, the training and validation curves can be visualized as follows
 ```
 python3 -m openpifpaf.logs \
   outputs/resnet50block5-pif-paf-edge401-190424-122009.pkl.log \
@@ -93,7 +94,17 @@ python3 -m openpifpaf.logs \
 # Test
 ------------
 
-* Generate the video with the predicted poses
-* Generate the video with the intent activity map
+* Generate the video with the predicted poses by running `./paint_pose.sh` which contains the following command
+```
+CUDA_VISIBLE_DEVICES="0" python3 -m openpifpaf.video_pose --batch-size 1 --jaad_batch_size 1 \
+--checkpoint outputs/resnet50block5-pif-paf-crm-edge401-190526-203030.pkl.epoch006
+```
+
+* Generate the video with the predicted action activity map by running `./paint_action.sh` which contains the following command
+```
+CUDA_VISIBLE_DEVICES="0" python3 -m openpifpaf.video_crm --batch-size 1 --jaad_batch_size 1 \
+--checkpoint outputs/resnet50block5-pif-paf-crm-edge401-190526-203030.pkl.epoch006 \
+```
+
 * Guided backpropagation as shown in the paper
 * Evaluate precision and recall
