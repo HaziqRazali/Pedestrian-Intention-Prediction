@@ -36,10 +36,18 @@ pip3 install openpifpaf
 pip3 install numpy cython
 pip3 install --editable '.[train,test]'
 ```
-* Download the MSCOCO dataset and place them in
+* Download the [MSCOCO](http://cocodataset.org/#download) 2017 Train images [118K/18GB], 2017 Val images [5K/1GB] and the 2017 Train/Val annotations [241MB] and unzip them in the folders as shown below
 * Download the JAAD dataset and place them in
 * Run the script to convert the JAAD videos into frames 
 * JAAD annotation file
+
+    ├── datasets  
+        ├── coco
+            ├── annotations 
+            ├── images   
+                ├── train2017
+                ├── val2017
+        ├── jaad  
 
 # Train
 ------------
