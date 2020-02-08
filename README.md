@@ -2,7 +2,7 @@ Readme not complete
 
 # Pedestrian-Intention-Prediction
 
-We develop a method for pedestrian pose estimation and intent prediction. The source code is built on top of [PifPaf](https://github.com/vita-epfl/openpifpaf/blob/master/README.md) with very little modifications. Work done at [EPFL VITA laboratory](https://www.epfl.ch/labs/vita/) under Professor Alexandre Alahi. Details can be found in the [report in google drive](https://drive.google.com/file/d/1ugMVJ4y1UBloYo3JQH3vUw45tm4URo04/view?usp=sharing).
+We develop a method for pedestrian pose estimation and intent prediction. The source code is built on top of [PifPaf](https://github.com/vita-epfl/openpifpaf/blob/master/README.md) with very little modifications. Work done at [EPFL VITA laboratory](https://www.epfl.ch/labs/vita/) under Professor Alexandre Alahi. Details can be found in the [report in google drive](https://drive.google.com/file/d/1AlNLNjfWHjs_0u7PzXfDiKq19iUDufcQ/view?usp=sharing).
 
 # Contents
 ------------
