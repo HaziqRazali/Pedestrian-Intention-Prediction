@@ -7,7 +7,7 @@ We develop a method for pedestrian pose estimation and intent prediction. The so
 # Contents
 ------------
   * [Requirements](#requirements)
-  * [Results](#results)
+  * [Video](#video)
   * [Brief Project Structure](#brief-project-structure)
   * [Install](#install)
   * [Train](#train)
@@ -22,7 +22,7 @@ What we used to develop the system
   * OpenCV
   * Ubuntu 18.04.2
 
-# Results
+# Video
 ------------
  
 [![Vid](/others/Video.png)](https://www.youtube.com/watch?v=KTmi0D-UTTQ)
